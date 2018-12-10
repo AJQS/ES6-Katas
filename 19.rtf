@@ -1,0 +1,55 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf100
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red109\green109\blue109;\red32\green32\blue32;\red153\green168\blue186;
+\red88\green118\blue71;\red191\green100\blue38;\red86\green132\blue173;}
+{\*\expandedcolortbl;;\csgenericrgb\c42745\c42745\c42745;\csgenericrgb\c12549\c12549\c12549;\csgenericrgb\c60000\c65882\c72941;
+\csgenericrgb\c34510\c46275\c27843;\csgenericrgb\c74902\c39216\c14902;\csgenericrgb\c33725\c51765\c67843;}
+\margl1440\margr1440\vieww12120\viewh20500\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf2 \cb3 // 19: rest - with-destructuring\
+// To do: make all tests pass, leave the assert lines unchanged!\
+\
+\cf4 describe(\cf5 'rest with destructuring'\cf6 , \cf4 () => \{\
+    \
+  it(\cf5 'rest parameter must be last'\cf6 , \cf4 () => \{\
+    
+\f1\b \cf6 const 
+\f0\b0 \cf4 [...all] = [\cf7 1\cf6 , \cf7 2\cf6 , \cf7 3\cf6 , \cf7 4\cf4 ]\cf6 ;\
+    \cf4 assert.deepEqual(all\cf6 , \cf4 [\cf7 1\cf6 , \cf7 2\cf6 , \cf7 3\cf6 , \cf7 4\cf4 ])\cf6 ;\
+  \cf4 \})\cf6 ;\
+  \
+  \cf4 it(\cf5 'assign rest of an array to a variable'\cf6 , \cf4 () => \{\
+    
+\f1\b \cf6 const 
+\f0\b0 \cf4 [x\cf6 ,\cf4 ...all] = [\cf7 1\cf6 , \cf7 2\cf6 , \cf7 3\cf6 , \cf7 4\cf4 ]\cf6 ;\
+    \cf4 assert.deepEqual(all\cf6 , \cf4 [\cf7 2\cf6 , \cf7 3\cf6 , \cf7 4\cf4 ])\cf6 ;\
+  \cf4 \})\cf6 ;\
+  \
+  \cf2 // the following are actually using `spread` ... oops, to be fixed\
+  \cf4 it(\cf5 'concat differently'\cf6 , \cf4 () => \{\
+    
+\f1\b \cf6 const 
+\f0\b0 \cf4 theEnd = [\cf7 3\cf6 , \cf7 4\cf4 ]\cf6 ;\
+    
+\f1\b const 
+\f0\b0 \cf4 allInOne = [\cf7 1\cf6 , \cf7 2\cf6 , \cf4 ...theEnd]\cf6 ;\
+    \cf4 assert.deepEqual(allInOne\cf6 , \cf4 [\cf7 1\cf6 , \cf7 2\cf6 , \cf7 3\cf6 , \cf7 4\cf4 ])\cf6 ;\
+  \cf4 \})\cf6 ;\
+  \
+  \cf4 it(\cf5 '`apply` made simple, even for constructors'\cf6 , \cf4 () => \{\
+    
+\f1\b \cf6 const 
+\f0\b0 \cf4 theDate = [\cf7 2015\cf6 , \cf7 1\cf6 , \cf7 1\cf4 ]\cf6 ;\
+    
+\f1\b const 
+\f0\b0 \cf4 date = 
+\f1\b \cf6 new 
+\f0\b0 \cf4 Date(...theDate)\cf6 ;\
+    \cf4 assert.deepEqual(
+\f1\b \cf6 new 
+\f0\b0 \cf4 Date(\cf7 2015\cf6 , \cf7 1\cf6 , \cf7 1\cf4 )\cf6 , \cf4 date)\cf6 ;\
+  \cf4 \})\cf6 ;\
+  \
+\cf4 \})\cf6 ;\
+}
