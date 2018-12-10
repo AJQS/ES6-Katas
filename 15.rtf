@@ -1,0 +1,56 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf100
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red109\green109\blue109;\red32\green32\blue32;\red153\green168\blue186;
+\red88\green118\blue71;\red191\green100\blue38;\red86\green132\blue173;}
+{\*\expandedcolortbl;;\csgenericrgb\c42745\c42745\c42745;\csgenericrgb\c12549\c12549\c12549;\csgenericrgb\c60000\c65882\c72941;
+\csgenericrgb\c34510\c46275\c27843;\csgenericrgb\c74902\c39216\c14902;\csgenericrgb\c33725\c51765\c67843;}
+\margl1440\margr1440\vieww12120\viewh21000\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf2 \cb3 // 15: destructuring - assign\
+// To do: make all tests pass, leave the assert lines unchanged!\
+\
+\cf4 describe(\cf5 'assign object property values to new variables while destructuring'\cf6 , \cf4 () => \{\
+\
+  describe(\cf5 'for simple objects'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+    it(\cf5 'use a colon after the property name, like so `propertyName: newName`'\cf6 , \cf4 () => \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 \{x: y\} = \{x: \cf7 1\cf4 \}\cf6 ;\
+      \cf4 assert.equal(y\cf6 , \cf7 1\cf4 )\cf6 ;\
+    \cf4 \})\cf6 ;\
+    \
+    \cf4 it(\cf5 'assign a new name and give it a default value using `= <default value>`'\cf6 , \cf4 () => \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 \{x: y=\cf7 42\cf4 \} = \{y: \cf7 23\cf4 \}\cf6 ;\
+      \cf4 assert.equal(y\cf6 , \cf7 42\cf4 )\cf6 ;\
+    \cf4 \})\cf6 ;\
+  \cf4 \})\cf6 ;\
+\
+  \cf4 describe(\cf5 'for function parameter names'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+    it(\cf5 'do it the same way, with a colon behind it'\cf6 , \cf4 () => \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 fn = (\{x: y\}) => \{\
+        assert.equal(y\cf6 , \cf7 1\cf4 )\cf6 ;\
+      \cf4 \}\cf6 ;\
+      \cf4 fn(\{x: \cf7 1\cf4 \})\cf6 ;\
+    \cf4 \})\cf6 ;\
+    \
+    \cf4 it(\cf5 'giving it a default value is possible too, like above'\cf6 , \cf4 () => \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 fn = (\{x: y=\cf7 3\cf4 \}) => \{\
+        assert.equal(y\cf6 , \cf7 3\cf4 )\cf6 ;\
+      \cf4 \}\cf6 ;\
+      \cf4 fn(\{\})\cf6 ;\
+    \cf4 \})\cf6 ;\
+  \cf4 \})\cf6 ;\
+  \
+\cf4 \})\cf6 ;\
+}

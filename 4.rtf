@@ -1,0 +1,83 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf100
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red109\green109\blue109;\red32\green32\blue32;\red153\green168\blue186;
+\red88\green118\blue71;\red191\green100\blue38;\red86\green132\blue173;}
+{\*\expandedcolortbl;;\csgenericrgb\c42745\c42745\c42745;\csgenericrgb\c12549\c12549\c12549;\csgenericrgb\c60000\c65882\c72941;
+\csgenericrgb\c34510\c46275\c27843;\csgenericrgb\c74902\c39216\c14902;\csgenericrgb\c33725\c51765\c67843;}
+\margl1440\margr1440\vieww12120\viewh20500\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf2 \cb3 // 4: template strings - String.raw\
+// To do: make all tests pass, leave the asserts unchanged!\
+\
+\cf4 describe(\cf5 'on tagged template strings you can use the `raw` property like so `s.raw`'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+\
+  it(\cf5 'the `raw` property accesses the string as it was entered'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+    
+\f1\b \cf6 function 
+\f0\b0 \cf4 firstChar(strings) \{\
+      
+\f1\b \cf6 return 
+\f0\b0 \cf4 strings.raw\cf6 ;\
+    \cf4 \}\
+    assert.equal(firstChar\cf5 `\cf6 \\n\cf5 `\cf6 , \cf5 '\cf6 \\\\\cf5 n'\cf4 )\cf6 ;\
+  \cf4 \})\cf6 ;\
+\
+  \cf4 it(\cf5 '`raw` can access the backslash of a line-break'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+    
+\f1\b \cf6 function 
+\f0\b0 \cf4 firstCharEntered(strings) \{\
+      
+\f1\b \cf6 var 
+\f0\b0 \cf4 lineBreak = strings.raw.toString()\cf6 ;\
+      
+\f1\b return 
+\f0\b0 \cf4 lineBreak[\cf7 0\cf4 ]\cf6 ;\
+    \cf4 \}\
+    assert.equal(firstCharEntered\cf5 `\cf6 \\n\cf5 `\cf6 , \cf5 '\cf6 \\\\\cf5 '\cf4 )\cf6 ;\
+  \cf4 \})\cf6 ;\
+\
+  \cf4 describe(\cf5 '`String.raw` as a static function'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 ()\{\
+\
+    it(\cf5 'concats the raw strings'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 var 
+\f0\b0 \cf4 expected = \cf5 '\cf6 \\\\\cf5 n'\cf6 ;\
+      \cf4 assert.equal(String.raw\cf5 `\cf6 \\n\cf5 `\cf6 , \cf4 expected)\cf6 ;\
+    \cf4 \})\cf6 ;\
+\
+    \cf4 it(\cf5 'two raw-templates-string-backslashes equal two escaped backslashes'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 TWO_BACKSLASHES = \cf5 '\cf6 \\\\\\\\\cf5 '\cf6 ;\
+      \cf4 assert.equal(String.raw\cf5 `\cf6 \\\\\cf5 `\cf6 , \cf4 TWO_BACKSLASHES)\cf6 ;\
+    \cf4 \})\cf6 ;\
+\
+    \cf4 it(\cf5 'works on unicodes too'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 var 
+\f0\b0 \cf4 smilie = \cf5 '\cf6 \\\\\cf5 u\{1F600\}'\cf6 ;\
+      
+\f1\b var 
+\f0\b0 \cf4 actual = String.raw\cf5 `\cf6 \\u\{1F600\}\cf5 `\cf6 ;\
+      \cf4 assert.equal(actual\cf6 , \cf4 smilie)\cf6 ;\
+    \cf4 \})\cf6 ;\
+\
+  \cf4 \})\cf6 ;\
+\cf4 \})\cf6 ;\
+\
+}
