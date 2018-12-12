@@ -1,0 +1,108 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf100
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red109\green109\blue109;\red32\green32\blue32;\red153\green168\blue186;
+\red88\green118\blue71;\red191\green100\blue38;\red86\green132\blue173;}
+{\*\expandedcolortbl;;\csgenericrgb\c42745\c42745\c42745;\csgenericrgb\c12549\c12549\c12549;\csgenericrgb\c60000\c65882\c72941;
+\csgenericrgb\c34510\c46275\c27843;\csgenericrgb\c74902\c39216\c14902;\csgenericrgb\c33725\c51765\c67843;}
+\margl1440\margr1440\vieww12120\viewh20500\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf2 \cb3 // 37: iterator/iterable - array. \
+// The iterator protocol defines a standard way to produce a sequence of values (either finite or infinite).\
+// read more at https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols\
+\
+// To do: make all tests pass, leave the assert lines unchanged!\
+\
+\cf4 describe(\cf5 'array is a built-in iterable object'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+  \
+  
+\f1\b \cf6 const 
+\f0\b0 \cf4 arr = [\cf5 'a'\cf6 , \cf5 'B'\cf6 , \cf5 'see'\cf4 ]\cf6 ;\
+\
+  \cf4 describe(\cf5 'the iterator'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+    it(\cf5 'an array has an iterator, which is a function'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 iterator = arr[Symbol.iterator]\cf6 ;\
+      
+\f1\b const 
+\f0\b0 \cf4 theType = 
+\f1\b \cf6 typeof 
+\f0\b0 \cf4 iterator\cf6 ;\
+      
+\f1\b const 
+\f0\b0 \cf4 expected = \cf5 'function'\cf6 ;\
+      \
+      \cf4 assert.equal(theType\cf6 , \cf4 expected)\cf6 ;\
+    \cf4 \})\cf6 ;\
+    \
+    \cf4 it(\cf5 'can be looped with `for-of`, which expects an iterable'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 let 
+\f0\b0 \cf4 count = \cf7 0\cf6 ;\
+      
+\f1\b for 
+\f0\b0 \cf4 (
+\f1\b \cf6 let 
+\f0\b0 \cf4 value 
+\f1\b \cf6 of 
+\f0\b0 \cf4 arr) \{\
+        count++\cf6 ;\
+      \cf4 \}\
+      \
+      assert.equal(count\cf6 , \cf4 arr.length)\cf6 ;\
+    \cf4 \})\cf6 ;\
+  \cf4 \})\cf6 ;\
+\
+  \cf4 describe(\cf5 'the iterator protocol'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+  \
+    it(\cf5 'calling `next()` on an iterator returns an object according to the iterator protocol'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 iterator = arr[Symbol.iterator]()\cf6 ;\
+      
+\f1\b const 
+\f0\b0 \cf4 firstItem = iterator.next()\cf6 ;\
+      \
+      \cf4 assert.deepEqual(firstItem\cf6 , \cf4 \{done: 
+\f1\b \cf6 false
+\f0\b0 , \cf4 value: \cf5 'a'\cf4 \})\cf6 ;\
+    \cf4 \})\cf6 ;\
+    \
+    \cf4 it(\cf5 'the after-last element has done=true'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 arr = []\cf6 ;\
+      
+\f1\b const 
+\f0\b0 \cf4 iterator = arr[Symbol.iterator]()\cf6 ;\
+      
+\f1\b const 
+\f0\b0 \cf4 afterLast = iterator.next()\cf6 ;\
+      \
+      \cf4 assert.deepEqual(afterLast\cf6 , \cf4 \{done: 
+\f1\b \cf6 true
+\f0\b0 , \cf4 value: 
+\f1\b \cf6 void 
+\f0\b0 \cf7 0\cf4 \})\cf6 ;\
+    \cf4 \})\cf6 ;\
+    \
+  \cf4 \})\cf6 ;\
+  \
+\cf4 \})\cf6 ;\
+\
+}
