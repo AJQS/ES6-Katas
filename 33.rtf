@@ -1,0 +1,93 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf100
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red109\green109\blue109;\red32\green32\blue32;\red153\green168\blue186;
+\red88\green118\blue71;\red191\green100\blue38;\red86\green132\blue173;}
+{\*\expandedcolortbl;;\csgenericrgb\c42745\c42745\c42745;\csgenericrgb\c12549\c12549\c12549;\csgenericrgb\c60000\c65882\c72941;
+\csgenericrgb\c34510\c46275\c27843;\csgenericrgb\c74902\c39216\c14902;\csgenericrgb\c33725\c51765\c67843;}
+\margl1440\margr1440\vieww12120\viewh20500\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf2 \cb3 // 33: array - `Array.prototype.findIndex` \
+// To do: make all tests pass, leave the assert lines unchanged!\
+\
+\cf4 describe(\cf5 '`Array.prototype.findIndex` makes finding items in arrays easier'\cf6 , \cf4 () => \{\
+\
+  it(\cf5 'takes a compare function, returns the index where it returned true'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+    
+\f1\b \cf6 const 
+\f0\b0 \cf4 foundAt = [
+\f1\b \cf6 false
+\f0\b0 , 
+\f1\b true
+\f0\b0 \cf4 ].findIndex(item => item)\cf6 ;\
+    \
+    \cf4 assert.equal(foundAt\cf6 , \cf7 1\cf4 )\cf6 ;\
+  \cf4 \})\cf6 ;\
+\
+  \cf4 it(\cf5 'returns the first position it was found at'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+    
+\f1\b \cf6 const 
+\f0\b0 \cf4 foundAt = [\cf7 0\cf6 , \cf7 1\cf6 , \cf7 1\cf6 , \cf7 1\cf4 ].findIndex(item => item === \cf7 1\cf4 )\cf6 ;\
+    \
+    \cf4 assert.equal(foundAt\cf6 , \cf7 1\cf4 )\cf6 ;\
+  \cf4 \})\cf6 ;\
+\
+  \cf4 it(\cf5 'returns `-1` when nothing was found'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+    
+\f1\b \cf6 const 
+\f0\b0 \cf4 foundAt = [\cf7 1\cf6 , \cf7 2\cf6 , \cf7 3\cf4 ].findIndex(item => item > \cf7 3\cf4 )\cf6 ;\
+    \
+    \cf4 assert.equal(foundAt\cf6 , \cf4 -\cf7 1\cf4 )\cf6 ;\
+  \cf4 \})\cf6 ;\
+\
+  \cf4 it(\cf5 'the findIndex callback gets the item, index and array as arguments'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+    
+\f1\b \cf6 const 
+\f0\b0 \cf4 three = \cf7 3\cf6 ;\
+    
+\f1\b const 
+\f0\b0 \cf4 containsThree = arr => arr.indexOf(three) > -\cf7 1\cf6 ;\
+    
+\f1\b function 
+\f0\b0 \cf4 theSecondThree(item\cf6 ,\cf4 index\cf6 , \cf4 arr) \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 preceedingItems = arr.slice(\cf7 0\cf6 , \cf4 index)\cf6 ;\
+      
+\f1\b return 
+\f0\b0 \cf4 containsThree(preceedingItems)\cf6 ;\
+    \cf4 \}\
+    
+\f1\b \cf6 const 
+\f0\b0 \cf4 foundAt = [\cf7 1\cf6 , \cf7 1\cf6 , \cf7 2\cf6 , \cf7 3\cf6 , \cf7 3\cf6 , \cf7 3\cf4 ].findIndex(theSecondThree)\cf6 ;\
+    \
+    \cf4 assert.equal(foundAt\cf6 , \cf7 4\cf4 )\cf6 ;\
+  \cf4 \})\cf6 ;\
+\
+  \cf4 it(\cf5 'combined with destructuring complex compares become short'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+    
+\f1\b \cf6 const 
+\f0\b0 \cf4 bob = \{name: \cf5 'Bob'\cf4 \}\cf6 ;\
+    
+\f1\b const 
+\f0\b0 \cf4 alice = \{name: \cf5 'Alice'\cf4 \}\cf6 ;\
+    
+\f1\b const 
+\f0\b0 \cf4 foundAt = [bob\cf6 , \cf4 alice].findIndex((\{name:\{length\}\}) => length > \cf7 3\cf4 )\cf6 ;\
+    \
+    \cf4 assert.equal(foundAt\cf6 , \cf7 1\cf4 )\cf6 ;\
+  \cf4 \})\cf6 ;\
+\
+\cf4 \})\cf6 ;\
+\
+}
