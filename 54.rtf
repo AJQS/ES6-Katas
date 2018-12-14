@@ -1,0 +1,161 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf100
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red109\green109\blue109;\red32\green32\blue32;\red153\green168\blue186;
+\red88\green118\blue71;\red191\green100\blue38;\red86\green132\blue173;}
+{\*\expandedcolortbl;;\csgenericrgb\c42745\c42745\c42745;\csgenericrgb\c12549\c12549\c12549;\csgenericrgb\c60000\c65882\c72941;
+\csgenericrgb\c34510\c46275\c27843;\csgenericrgb\c74902\c39216\c14902;\csgenericrgb\c33725\c51765\c67843;}
+\margl1440\margr1440\vieww12120\viewh20500\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf2 \cb3 // 54: Object - is\
+// To do: make all tests pass, leave the assert lines unchanged!\
+\
+\cf4 describe(\cf5 '`Object.is()` determines whether two values are the same'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 ()\{\
+\
+  describe(\cf5 'scalar values'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+    it(\cf5 '1 is the same as 1'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 areSame = Object.is(\cf7 1\cf6 , \cf7 1\cf4 )\cf6 ;\
+      \cf4 assert.equal(areSame\cf6 , 
+\f1\b true
+\f0\b0 \cf4 )\cf6 ;\
+    \cf4 \})\cf6 ;\
+    \cf4 it(\cf5 'int 1 is different to string "1"'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 areSame = Object.is(\cf7 1\cf6 , \cf5 '1'\cf4 )\cf6 ;\
+      \cf4 assert.equal(areSame\cf6 , 
+\f1\b false
+\f0\b0 \cf4 )\cf6 ;\
+    \cf4 \})\cf6 ;\
+    \cf4 it(\cf5 'strings just have to match'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 areSame = Object.is(\cf5 'one'\cf6 , \cf5 'one'\cf4 )\cf6 ;\
+      \cf4 assert.equal(areSame\cf6 , 
+\f1\b true
+\f0\b0 \cf4 )\cf6 ;\
+    \cf4 \})\cf6 ;\
+    \cf4 it(\cf5 '+0 is not the same as -0'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 areSame = 
+\f1\b \cf6 false\
+      
+\f0\b0 \cf4 assert.equal(Object.is(+\cf7 0\cf6 , \cf4 -\cf7 0\cf4 )\cf6 , \cf4 areSame)\cf6 ;\
+    \cf4 \})\cf6 ;\
+    \cf4 it(\cf5 'NaN is the same as NaN'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 number = NaN\cf6 ;\
+      \cf4 assert.equal(Object.is(NaN\cf6 , \cf4 number)\cf6 , 
+\f1\b true
+\f0\b0 \cf4 )\cf6 ;\
+    \cf4 \})\cf6 ;\
+  \cf4 \})\cf6 ;\
+  \
+  \cf4 describe(\cf5 'coercion, as in `==` and `===`, does NOT apply'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+    it(\cf5 '+0 != -0'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 coerced = +\cf7 0 \cf4 != -\cf7 0\cf6 ;\
+      
+\f1\b const 
+\f0\b0 \cf4 isSame = Object.is(+\cf7 0\cf6 , \cf4 -\cf7 0\cf4 )\cf6 ;\
+      \cf4 assert.equal(isSame\cf6 , \cf4 coerced)\cf6 ;\
+    \cf4 \})\cf6 ;\
+    \cf4 it(\cf5 'empty string and `false` are not the same'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 emptyString = \cf5 'a'\cf6 ;\
+      
+\f1\b const 
+\f0\b0 \cf4 isSame = Object.is(emptyString\cf6 , 
+\f1\b false
+\f0\b0 \cf4 )\cf6 ;\
+      \cf4 assert.equal(isSame\cf6 , \cf4 emptyString == 
+\f1\b \cf6 false
+\f0\b0 \cf4 )\cf6 ;\
+    \cf4 \})\cf6 ;\
+    \cf4 it(\cf5 'NaN'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 coerced = NaN != NaN\cf6 ;\
+      
+\f1\b const 
+\f0\b0 \cf4 isSame = Object.is(NaN\cf6 , \cf4 NaN)\cf6 ;\
+      \cf4 assert.equal(isSame\cf6 , \cf4 coerced)\cf6 ;\
+    \cf4 \})\cf6 ;\
+    \cf4 it(\cf5 'NaN 0/0'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 isSame = Object.is(NaN\cf6 , \cf7 0\cf4 /\cf7 0\cf4 )\cf6 ;\
+      \cf4 assert.equal(isSame\cf6 , 
+\f1\b true
+\f0\b0 \cf4 )\cf6 ;\
+    \cf4 \})\cf6 ;\
+  \cf4 \})\cf6 ;\
+  \
+  \cf4 describe(\cf5 'complex values'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+    it(\cf5 '`\{\}` is just not the same as `\{\}`'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 areSame = 
+\f1\b \cf6 false
+\f0\b0 ;\
+      \cf4 assert.equal(Object.is(\{\}\cf6 , \cf4 \{\})\cf6 , \cf4 areSame)\cf6 ;\
+    \cf4 \})\cf6 ;\
+    \cf4 it(\cf5 'Map'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 let 
+\f0\b0 \cf4 map1 = 
+\f1\b \cf6 new 
+\f0\b0 \cf4 Map([[\cf7 1\cf6 , \cf5 'one'\cf4 ]])\cf6 ;\
+      
+\f1\b let 
+\f0\b0 \cf4 map2 = 
+\f1\b \cf6 new 
+\f0\b0 \cf4 Map([[\cf7 1\cf6 , \cf5 'one'\cf4 ]])\cf6 ;\
+      
+\f1\b const 
+\f0\b0 \cf4 areSame = Object.is(map1\cf6 , \cf4 map2)\cf6 ;\
+      \cf4 assert.equal(areSame\cf6 , 
+\f1\b false
+\f0\b0 \cf4 )\cf6 ;\
+    \cf4 \})\cf6 ;\
+  \cf4 \})\cf6 ;\
+  \
+\cf4 \})\cf6 ;\
+\
+}
