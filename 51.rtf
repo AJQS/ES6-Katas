@@ -1,0 +1,125 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf100
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red109\green109\blue109;\red32\green32\blue32;\red153\green168\blue186;
+\red88\green118\blue71;\red191\green100\blue38;}
+{\*\expandedcolortbl;;\csgenericrgb\c42745\c42745\c42745;\csgenericrgb\c12549\c12549\c12549;\csgenericrgb\c60000\c65882\c72941;
+\csgenericrgb\c34510\c46275\c27843;\csgenericrgb\c74902\c39216\c14902;}
+\margl1440\margr1440\vieww12120\viewh20500\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf2 \cb3 // 51: Generator - Yield Expressions\
+// To do: make all tests pass, leave the assert lines unchanged!\
+\
+\cf4 describe(\cf5 'generator - `yield` is used to pause and resume a generator function'\cf6 , \cf4 () => \{\
+\
+  
+\f1\b \cf6 function
+\f0\b0 \cf4 * generatorFunction() \{\
+    
+\f1\b \cf6 yield 
+\f0\b0 \cf5 'hello'\cf6 ;\
+    
+\f1\b yield 
+\f0\b0 \cf5 'world'\cf6 ;\
+  \cf4 \}\
+\
+  
+\f1\b \cf6 let 
+\f0\b0 \cf4 generator\cf6 ;\
+\
+  \cf4 beforeEach(
+\f1\b \cf6 function
+\f0\b0 \cf4 () \{\
+    generator = generatorFunction()\cf6 ;\
+  \cf4 \})\cf6 ;\
+\
+  \cf4 it(\cf5 'converting a generator to an array resumes the generator until all values are received'\cf6 , \cf4 () => \{\
+    
+\f1\b \cf6 let 
+\f0\b0 \cf4 values = Array.from(generator)\cf6 ;\
+    \cf4 assert.deepEqual(values\cf6 , \cf4 [\cf5 'hello'\cf6 , \cf5 'world'\cf4 ])\cf6 ;\
+  \cf4 \})\cf6 ;\
+\
+  \cf4 describe(\cf5 'after the first `generator.next()` call'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+    \
+    it(\cf5 'the value is "hello"'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 \{value\} = generator.next()\cf6 ;\
+      \cf4 assert.equal(value\cf6 , \cf5 'hello'\cf4 )\cf6 ;\
+    \cf4 \})\cf6 ;\
+    \
+    \cf4 it(\cf5 'and `done` is false'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 \{done\} = generator.next()\cf6 ;\
+      \cf4 assert.equal(done\cf6 , 
+\f1\b false
+\f0\b0 \cf4 )\cf6 ;\
+    \cf4 \})\cf6 ;\
+    \
+  \cf4 \})\cf6 ;\
+\
+  \cf4 describe(\cf5 'after the second `next()` call'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+    \
+    
+\f1\b \cf6 let 
+\f0\b0 \cf4 secondItem\cf6 ;\
+    \cf4 beforeEach(
+\f1\b \cf6 function
+\f0\b0 \cf4 () \{\
+      generator.next()\cf6 ;\
+      \cf4 secondItem = generator.next()\cf6 ;\
+    \cf4 \})\cf6 ;\
+    \
+    \cf4 it(\cf5 '`value` is "world"'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 let 
+\f0\b0 \cf4 \{value\} = secondItem\cf6 ;\
+      \cf4 assert.equal(value\cf6 , \cf5 'world'\cf4 )\cf6 ;\
+    \cf4 \})\cf6 ;\
+    \
+    \cf4 it(\cf5 'and `done` is still false'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 done = secondItem.done\cf6 ;\
+      \cf4 assert.equal(done\cf6 , 
+\f1\b false
+\f0\b0 \cf4 )\cf6 ;\
+    \cf4 \})\cf6 ;\
+  \cf4 \})\cf6 ;\
+\
+  \cf4 describe(\cf5 'after stepping past the last element, calling `next()` that often'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+    \
+    it(\cf5 '`done` property equals true, since there is nothing more to iterator over'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      generator.next()\cf6 ;\
+      \cf4 generator.next()\cf6 ;\
+      
+\f1\b let 
+\f0\b0 \cf4 \{done\} = generator.next()\cf6 ;\
+      \cf4 assert.equal(done\cf6 , 
+\f1\b true
+\f0\b0 \cf4 )\cf6 ;\
+    \cf4 \})\cf6 ;\
+    \
+  \cf4 \})\cf6 ;\
+\
+\cf4 \})\cf6 ;\
+\
+}
