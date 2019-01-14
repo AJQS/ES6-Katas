@@ -1,0 +1,149 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf100
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red109\green109\blue109;\red32\green32\blue32;\red153\green168\blue186;
+\red88\green118\blue71;\red191\green100\blue38;\red86\green132\blue173;}
+{\*\expandedcolortbl;;\csgenericrgb\c42745\c42745\c42745;\csgenericrgb\c12549\c12549\c12549;\csgenericrgb\c60000\c65882\c72941;
+\csgenericrgb\c34510\c46275\c27843;\csgenericrgb\c74902\c39216\c14902;\csgenericrgb\c33725\c51765\c67843;}
+\margl1440\margr1440\vieww12120\viewh20500\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf2 \cb3 // 71: String - `repeat()` \
+// To do: make all tests pass, leave the assert lines unchanged!\
+\
+\cf4 describe(\cf5 '`str.repeat(x)` appends `x` copies of `str` to each other and returns it'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+\
+  describe(\cf5 'pass the count to `str.repeat(count)`'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+    it(\cf5 'for `1` the string stays the same'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 what = \cf5 'one'\cf4 .repeat(\cf7 1\cf4 )\cf6 ;\
+      \cf4 assert.equal(what\cf6 , \cf5 'one'\cf4 )\cf6 ;\
+    \cf4 \})\cf6 ;\
+    \cf4 it(\cf5 'for `3` the string `x` becomes `xxx`'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 actual = \cf5 'x'\cf4 .repeat(\cf7 3\cf4 )\cf6 ;\
+      \cf4 assert.equal(actual\cf6 , \cf5 'xxx'\cf4 )\cf6 ;\
+    \cf4 \})\cf6 ;\
+    \cf4 it(\cf5 'for `0` an empty string is returned'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 dontRepeat = \cf7 0\cf6 ;\
+      \cf4 assert.equal(\cf5 'shrink'\cf4 .repeat(dontRepeat)\cf6 , \cf5 ''\cf4 )\cf6 ;\
+    \cf4 \})\cf6 ;\
+    \
+    \cf4 it(\cf5 'the count is not an int, such as "3", it gets coerced to an int'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 repeated = \cf5 'three'\cf4 .repeat(\cf5 '3'\cf4 )\cf6 ;\
+      \cf4 assert.equal(repeated\cf6 , \cf5 'threethreethree'\cf4 )\cf6 ;\
+    \cf4 \})\cf6 ;\
+  \cf4 \})\cf6 ;\
+\
+  \cf4 describe(\cf5 'throws an error for'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+    it(\cf5 'a count of <0'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 belowZero = -\cf7 1\cf6 ;\
+      \cf4 assert.throws(() => \{ \cf5 ''\cf4 .repeat(belowZero)\cf6 ; \cf4 \}\cf6 , \cf4 RangeError)\cf6 ;\
+    \cf4 \})\cf6 ;\
+    \cf4 it(\cf5 'a count of +Infinty'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 let 
+\f0\b0 \cf4 infinity = Infinity\cf6 ;\
+      \cf4 assert.throws(() => \{ \cf5 ''\cf4 .repeat(infinity)\cf6 ; \cf4 \}\cf6 , \cf4 RangeError)\cf6 ;\
+    \cf4 \})\cf6 ;\
+  \cf4 \})\cf6 ;\
+  \
+  \cf4 describe(\cf5 'accepts everything that can be coerced to a string'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+    it(\cf5 'e.g. a boolean'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 let 
+\f0\b0 \cf4 aBool = 
+\f1\b \cf6 false
+\f0\b0 ;\
+      \cf4 assert.equal(String.prototype.repeat.call(aBool\cf6 , \cf7 2\cf4 )\cf6 , \cf5 'falsefalse'\cf4 )\cf6 ;\
+    \cf4 \})\cf6 ;\
+    \cf4 it(\cf5 'e.g. a number'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 let 
+\f0\b0 \cf4 aNumber = \cf7 1\cf6 ;\
+      \cf4 assert.equal(String.prototype.repeat.call(aNumber\cf6 , \cf7 2\cf4 )\cf6 , \cf5 '11'\cf4 )\cf6 ;\
+    \cf4 \})\cf6 ;\
+  \cf4 \})\cf6 ;\
+\
+  \cf4 describe(\cf5 'for my own (string) class'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+    it(\cf5 'calls `toString()` to make it a string'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 class 
+\f0\b0 \cf4 MyString \{ toString() \{ 
+\f1\b \cf6 return 
+\f0\b0 \cf5 'my string'\cf6 ; \cf4 \} \}\
+      \
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 expectedString = 
+\f1\b \cf6 new 
+\f0\b0 \cf4 MyString()\cf6 ;\
+      \
+      \cf4 assert.equal(String(
+\f1\b \cf6 new 
+\f0\b0 \cf4 MyString()).repeat(\cf7 1\cf4 )\cf6 , \cf4 expectedString)\cf6 ;\
+    \cf4 \})\cf6 ;\
+    \cf4 it(\cf5 '`toString()` is only called once'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 let 
+\f0\b0 \cf4 counter = \cf7 1\cf6 ;\
+      
+\f1\b class 
+\f0\b0 \cf4 X \{\
+        toString() \{\
+          
+\f1\b \cf6 return 
+\f0\b0 \cf4 counter++\cf6 ;\
+        \cf4 \}\
+      \}\
+      \
+      
+\f1\b \cf6 let 
+\f0\b0 \cf4 repeated = String(
+\f1\b \cf6 new 
+\f0\b0 \cf4 X()).repeat(\cf7 2\cf4 )\cf6 ;\
+      \
+      \cf4 assert.equal(repeated\cf6 , \cf5 '11'\cf4 )\cf6 ;\
+    \cf4 \})\cf6 ;\
+  \cf4 \})\cf6 ;\
+  \
+\cf4 \})\cf6 ;\
+\
+}
