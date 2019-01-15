@@ -1,0 +1,146 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf100
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red109\green109\blue109;\red32\green32\blue32;\red153\green168\blue186;
+\red88\green118\blue71;\red191\green100\blue38;\red86\green132\blue173;}
+{\*\expandedcolortbl;;\csgenericrgb\c42745\c42745\c42745;\csgenericrgb\c12549\c12549\c12549;\csgenericrgb\c60000\c65882\c72941;
+\csgenericrgb\c34510\c46275\c27843;\csgenericrgb\c74902\c39216\c14902;\csgenericrgb\c33725\c51765\c67843;}
+\margl1440\margr1440\vieww12120\viewh20500\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf2 \cb3 // 77: Promise - chaining \
+// To do: make all tests pass, leave the assert lines unchanged!\
+\
+\cf4 describe(\cf5 'chaining multiple promises can enhance readability'\cf6 , \cf4 () => \{\
+\
+  describe(\cf5 'prerequisites for understanding'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+    \
+    it(\cf5 'reminder: the test passes when a fulfilled promise is returned'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 return 
+\f0\b0 \cf4 Promise.resolve(\cf5 'I should fulfill.'\cf4 )\cf6 ;\
+    \cf4 \})\cf6 ;\
+  \
+    \cf4 it(\cf5 'a function given to `then()` fulfills (if it doesnt throw)'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 beNice = () =>  \cf5 'I am nice' \cf6 ;\
+      
+\f1\b return 
+\f0\b0 \cf4 Promise.resolve()\
+        .then(beNice)\
+        .then(niceMessage => assert.equal(niceMessage\cf6 , \cf5 'I am nice'\cf4 ))\cf6 ;\
+    \cf4 \})\cf6 ;\
+    \
+  \cf4 \})\cf6 ;\
+\
+  \cf4 describe(\cf5 'chain promises'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+    \
+    
+\f1\b \cf6 const 
+\f0\b0 \cf4 removeMultipleSpaces = string => string.replace(\cf5 /\\s+/g\cf6 , \cf5 ' '\cf4 )\cf6 ;\
+    \
+    \cf4 it(\cf5 '`then()` receives the result of the promise it was called on'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 wordsPromise = Promise.resolve(\cf5 'one   space     between each     word'\cf4 )\cf6 ;\
+      \cf4 wordsPromise\
+        .then(string => removeMultipleSpaces())\
+        .then(actual => \{assert.equal(actual\cf6 , \cf5 'one space between each word'\cf4 )\})\
+      \cf6 ;\
+    \cf4 \})\cf6 ;\
+    \
+    
+\f1\b const 
+\f0\b0 \cf4 appendPeriod = string => \cf5 `\cf4 $\{string\}\cf5 .`\cf6 ;\
+    \
+    \cf4 it(\cf5 'multiple `then()`s can be chained'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 wordsPromise = Promise.resolve(\cf5 'Sentence without       an end'\cf4 )\cf6 ;\
+      \cf4 wordsPromise\
+        .then(removeMultipleSpaces)\
+        .then(actual => \{assert.equal(actual\cf6 , \cf5 'Sentence without an end.'\cf4 )\})\
+      \cf6 ;\
+    \cf4 \})\cf6 ;\
+    \
+    
+\f1\b const 
+\f0\b0 \cf4 trim = string => string.replace(\cf5 /^\\s+/\cf6 , \cf5 ''\cf4 ).replace(\cf5 /\\s+$/\cf6 , \cf5 ''\cf4 )\cf6 ;\
+    \
+    \cf4 it(\cf5 'order of the `then()`s matters'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 wordsPromise = Promise.resolve(\cf5 'Sentence without       an end '\cf4 )\cf6 ;\
+      \cf4 wordsPromise\
+        .then(appendPeriod)\
+        .then(trim)\
+        .then(removeMultipleSpaces)\
+        .then(actual => \{assert.equal(actual\cf6 , \cf5 'Sentence without an end.'\cf4 )\})\
+      \cf6 ;\
+    \cf4 \})\cf6 ;\
+    \
+    
+\f1\b const 
+\f0\b0 \cf4 asyncUpperCaseStart = (string\cf6 , \cf4 onDone) => \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 format = onDone(string[\cf7 0\cf4 ].toUpperCase() + string.substr(\cf7 1\cf4 ))\cf6 ;\
+      \cf4 setTimeout(format\cf6 , \cf7 10\cf4 )\cf6 ;\
+    \cf4 \}\cf6 ;\
+  \
+    \cf4 it(\cf5 'any of the things given to `then()` can resolve asynchronously (the real power of Promises)'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 wordsPromise = Promise.resolve(\cf5 'sentence without an end'\cf4 )\cf6 ;\
+      \cf4 wordsPromise\
+        .then(string => 
+\f1\b \cf6 new 
+\f0\b0 \cf4 Promise(resolve => asyncUpperCaseStart))\
+        .then(string => 
+\f1\b \cf6 new 
+\f0\b0 \cf4 Promise(resolve => setTimeout(() => resolve(appendPeriod(string))\cf6 , \cf7 100\cf4 )))\
+        .then(actual => \{assert.equal(actual\cf6 , \cf5 'Sentence without an end.'\cf4 )\})\
+      \cf6 ;\
+    \cf4 \})\cf6 ;\
+  \
+    \cf4 it(\cf5 'also asynchronously, the order still matters, promises wait, but don`t block'\cf6 , 
+\f1\b function
+\f0\b0 \cf4 () \{\
+      
+\f1\b \cf6 const 
+\f0\b0 \cf4 wordsPromise = Promise.resolve(\cf5 'trailing space   '\cf4 )\cf6 ;\
+      \cf4 wordsPromise\
+        .then(string => 
+\f1\b \cf6 new 
+\f0\b0 \cf4 Promise(resolve => asyncUpperCaseStart(string\cf6 , \cf4 resolve)))\
+        .then(string => 
+\f1\b \cf6 new 
+\f0\b0 \cf4 Promise(resolve => setTimeout(() => resolve(appendPeriod(string))\cf6 , \cf7 100\cf4 )))\
+        .then(string => 
+\f1\b \cf6 new 
+\f0\b0 \cf4 Promise(resolve => setTimeout(() => resolve(trim(string))\cf6 , \cf7 100\cf4 )))\
+        .then(actual => \{assert.equal(actual\cf6 , \cf5 'Trailing space.'\cf4 )\})\
+      \cf6 ;\
+    \cf4 \})\cf6 ;\
+    \
+  \cf4 \})\cf6 ;\
+\
+\cf4 \})\cf6 ;\
+\
+}
